@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('delivery_times', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('name_kana');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('profile_image')->nullable();
-            $table->integer('classes_id');
+            $table->integer('curriculums_id');
+            $table->dateTime('delivery_from');
+            $table->dateTime('delivery_to');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('delivery_times');
     }
 };
