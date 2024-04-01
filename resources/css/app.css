@@ -1,0 +1,47 @@
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav-bar {
+    background-color: #F26B4A;
+    font-size: 1.5rem;
+
+}
+
+
+.nav-btn ul li {
+    width: 8rem;
+    height: 38px;
+    text-align: center;
+    background-color: #168398;
+    border-radius: 10px;
+}
+
+.nav-btn ul li:last-child {
+    font-size: 1.1vw;
+    margin: 0 auto;
+}
+
+.nav-btn ul li a {
+    display: block;
+    height: 100%;
+    color: #fff;
+}
+
+.logout a {
+    color: #000;
+}
+
+.banner-area {
+    width: 80%;
+    height: 300px;
+    border: solid 2px #000;
+}

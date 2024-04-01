@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('../resources/css/app.css') }}">
+
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            <nav class="nav-bar navbar-expand-md d-flex justify-content-between py-4 px-5">
+                <div class="nav-btn">
+                    <ul>
+                        <li class="float-start me-4"><a href="timetable">時間割</a></li>
+                        <li class="float-start me-4"><a href="progress">授業進捗</a></li>
+                        <li class="float-start"><a href="profile">プロフィール設定</a></li>
+                    </ul>
+                </div>
+                <div class="logout">
+                    @guest
+                    <a class="nav-link" href="{{ route('login') }}">ログイン</a>
+                    @else
+                    <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">ログアウト
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                    @endguest
+                </div>
+            </nav>
+        </header>
+        <div class="py-4">
+            @yield('content')
+        </div>
+    </div>
+</body>
+
+</html>
