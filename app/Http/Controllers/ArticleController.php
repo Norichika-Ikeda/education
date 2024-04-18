@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Banner;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArticleController extends Controller
 {
     public function top()
     {
+        $banners = Banner::get('image');
         $articles = Article::select('id', 'title', 'posted_date', 'article_contents')->get();
-        return view('top', ['articles' => $articles]);
+        return view('top', ['banners' => $banners, 'articles' => $articles]);
     }
 
-    public function article()
+    public function article($id)
     {
-        return view('articles');
+        $article = Article::find($id);
+        return view('articles', ['article' => $article]);
+    }
+
+    public function adminTop()
+    {
+        if (Auth::guard('admin')->check()) {
+            return view('admin_top');
+        }
     }
 }

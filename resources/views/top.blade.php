@@ -2,33 +2,24 @@
 
 @section('content')
 <div class="banner">
-    <div class="banner-area">
-
+    <div class="banner-area" id="bannerArea">
+        @foreach ($banners as $banner)
+        <div class="banner-image">
+            <img src="{{ asset('storage/' . $banner->image) }}" alt="">
+        </div>
+        @endforeach
     </div>
-    <div class="send-image">
-        <p>●●●●</p>
-    </div>
+    <ul class="banner-dot" id="bannerDot"></ul>
 </div>
 
 <div class="article">
     <h2>お知らせ</h2>
     <!-- DBからデータを取得し、foreachでループして表示させる。 -->
     @foreach ($articles as $article)
-    {{ Form::open(['url' => 'article/' .$article->id, 'method' => 'GET']) }}
-    @csrf
-    <table>
-        <thead>
-            <tr></tr>
-            <tr></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ $article->posted_date }}</td>
-                <td>{{ $article->title }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ Form::close() }}
+    <p>
+        <a href="{{ route('article', ['id' => $article->id]) }}"> {{ $article->posted_date }}
+            {{ $article->title }}</a>
+    </p>
     @endforeach
 </div>
 @endsection

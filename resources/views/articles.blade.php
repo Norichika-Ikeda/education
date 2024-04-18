@@ -1,17 +1,19 @@
 @extends('layouts.login_template')
 
 @section('content')
-<div class="back-btn">
-    <a href="top">←戻る</a>
-</div>
+<button type="button" onClick="history.back()">←戻る</button>
+
+<!-- {{ Form::open(['route' => 'top', 'method' => 'get']) }}
+<button type="submit" class="btn btn-info">←戻る</button>
+{{ Form::close() }} -->
 
 <div class="article-date">
-    <p>ここに日付が入ります</p>
+    <p>{{ $article->posted_date }}</p>
 </div>
 <div class="article-title">
-    <h3>ここにタイトルが入ります</h3>
+    <h3>{{ $article->title }}</h3>
 </div>
 <div class="article-detail">
-    <p>ここに本文が入ります。</p>
+    <p>{{ $article->article_contents }}</p>
 </div>
 @endsection

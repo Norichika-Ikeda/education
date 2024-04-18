@@ -32,15 +32,15 @@
                     </ul>
                 </div>
                 <div class="logout">
-                    @if (Auth::guard('user')->check())
-                    <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    @if (Auth::guard('admin')->check())
+                    <a class="" href="{{ route('admin_logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">ログアウト
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('admin_logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                     @else
-                    <a class="nav-link" href="{{ route('login') }}">ログイン</a>
+                    <a class="nav-link" href="{{ route('admin_login') }}">ログイン</a>
                     @endif
                 </div>
             </nav>

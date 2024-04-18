@@ -6,6 +6,9 @@ use App\Http\Controllers\CurriculumProgressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,15 +22,11 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::group(
-    ['middleware' => ['auth']],
+Route::middleware('auth:user')->group(
     function () {
-        /* ログイン時のみアクセス可能なルートはこの中に記述する。 */
-        Route::get('/top', [ArticleController::class, 'top']);
+        Route::get('/top', [ArticleController::class, 'top'])->name("top");
 
-        Route::get('/article', [ArticleController::class, 'article']);
+        Route::get('/articles/{id}', [ArticleController::class, 'article'])->name("article");
         Route::get('/timetable', [CurriculumController::class, 'timetable']);
         Route::get('/progress', [CurriculumProgressController::class, 'progress']);
         Route::get('/profile', [UserController::class, 'profile']);
