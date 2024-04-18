@@ -87,7 +87,6 @@ class LoginController extends Controller
             $request,
             $this->guard()->user()
         )) {
-            dd($response);
             return $response;
         }
 
