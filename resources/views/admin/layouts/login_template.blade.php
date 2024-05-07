@@ -17,35 +17,40 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('../resources/css/app.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 </head>
 
 <body>
     <div class="main">
         <header>
-            <nav class="navbar navbar-expand-md d-flex justify-content-between py-4 px-5">
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item me-4"><a href="timetable">時間割</a></li>
-                        <li class="nav-item me-4"><a href="progress">授業進捗</a></li>
-                        <li class="nav-item"><a href="profile">プロフィール設定</a></li>
-                    </ul>
+            <nav class="navbar navbar-expand-md d-flex justify-content-between py-4 px-5" data-type="admin">
+                <div class="navbar__list d-flex">
+                    {{ Form::open(['url' => 'admin/curriculum_management/' .'1', 'method' => 'GET']) }}
+                    <button type="submit" class="navbar__list-btn me-4">授業管理</button>
+                    {{ Form::close() }}
+                    {{ Form::open(['url' => 'admin/curriculum_management/' .'1', 'method' => 'GET']) }}
+                    <button type="submit" class="navbar__list-btn me-4" onclick="location.href=``">お知らせ管理</button>
+                    {{ Form::close() }}
+                    {{ Form::open(['url' => 'admin/curriculum_management/' .'1', 'method' => 'GET']) }}
+                    <button type="submit" class="navbar__list-btn" onclick="location.href=``">バナー管理</button>
+                    {{ Form::close() }}
                 </div>
                 <div class="logout">
                     @if (Auth::guard('admin')->check())
-                    <a class="" href="{{ route('admin_logout') }}" onclick="event.preventDefault();
+                    <a class="navbar-link__logout" data-type="admin" href="{{ route('admin_logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">ログアウト
                     </a>
                     <form id="logout-form" action="{{ route('admin_logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                     @else
-                    <a class="nav-link" href="{{ route('admin_login') }}">ログイン</a>
+                    <a class="navbar-link__login" href="{{ route('admin_login') }}">ログイン</a>
                     @endif
                 </div>
             </nav>
         </header>
-        <div class="py-4">
+        <div class="py-4 px-5">
             @yield('content')
         </div>
     </div>

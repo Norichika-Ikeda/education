@@ -11,8 +11,16 @@ a {
 }
 
 .navbar {
-    background-color: #F26B4A;
-    font-size: 1.5rem;
+    font-size: clamp(1em, 1.2em, 2em);
+
+    &[data-type="admin"] {
+        background-color: #4AECF2;
+    }
+
+    &:not([data-type]) {
+        background-color: #F26B4A;
+    }
+
 
 }
 
@@ -37,14 +45,19 @@ a {
 }
 
 .logout a {
-    color: #000;
+    &[data-type="admin"] {
+        color: #fff;
+    }
+
+    &:not([data-type]) {
+        color: #000;
+    }
 }
 
 .banner-area {
     display: flex;
     flex-wrap: nowrap;
     position: relative;
-    width: 90%;
     height: 400px;
     margin: 0 auto;
     border: solid 1px #ddd;
@@ -92,6 +105,44 @@ a {
     }
 }
 
+.classes-btn {
+    width: 120px;
+    border: solid 2px #666;
+    border-radius: 110px;
+    color: #fff;
+
+    &[data-num="1"],
+    &[data-num="2"],
+    &[data-num="3"],
+    &[data-num="4"],
+    &[data-num="5"],
+    &[data-num="6"] {
+        background-color: #89E5F5;
+    }
+
+    &[data-num="7"],
+    &[data-num="8"],
+    &[data-num="9"] {
+        background-color: #77E5D4;
+    }
+
+    &[data-num="10"],
+    &[data-num="11"],
+    &[data-num="12"] {
+        background-color: #94D058;
+    }
+}
+
+.curriculum {
+    width: 260px;
+    font-size: 1.2rem;
+
+    .thumbnail img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
 
 
 .banner-image>.classes-btn {
@@ -100,4 +151,116 @@ a {
     border: solid 1px #000;
     border-radius: 9999px;
     color: #fff;
+}
+
+
+.navbar__list-btn {
+    width: 8rem;
+    height: 38px;
+    border: solid 1px #000;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #646464;
+    white-space: nowrap;
+}
+
+.create-curriculum>button {
+    border: 0px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #169398;
+}
+
+
+
+.delivery-time {
+    display: flex;
+    align-items: center;
+
+    &>p {
+        margin: 0;
+    }
+
+    &>input:empty {
+        position: relative;
+        width: 200px;
+        margin: 10px;
+        text-align: center;
+
+        &::before {
+            content: attr(placeholder);
+            position: absolute;
+            transform: translateX(-50%);
+            opacity: 0.5;
+        }
+
+        &::-webkit-datetime-edit-fields-wrapper {
+            opacity: 1;
+        }
+
+        &[value] {
+            opacity: 1;
+        }
+
+        &[type="date"],
+        &[type="time"] {
+            position: relative;
+
+            &::-webkit-calendar-picker-indicator {
+                position: absolute;
+                width: 100%;
+                opacity: 0;
+            }
+        }
+    }
+
+    .delete-delivery-time,
+    .remove-delivery-time {
+        position: relative;
+        width: 36px;
+        height: 36px;
+        background-color: #FF0000;
+        border: solid 1px #000;
+        border-radius: 100%;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 4px;
+            background-color: #fff;
+            z-index: 9999;
+        }
+    }
+}
+
+.add-delivery-time {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background-color: #07BC69;
+    border: solid 1px #000;
+    border-radius: 100%;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: 4px;
+        background-color: #fff;
+        z-index: 9999;
+    }
+
+    &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
 }

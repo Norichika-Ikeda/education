@@ -14,7 +14,7 @@ class ArticleController extends Controller
     {
         $banners = Banner::get('image');
         $articles = Article::select('id', 'title', 'posted_date', 'article_contents')->get();
-        return view('top', ['banners' => $banners, 'articles' => $articles]);
+        return view('user.top', ['banners' => $banners, 'articles' => $articles]);
     }
 
     public function article($id)
@@ -26,7 +26,7 @@ class ArticleController extends Controller
     public function adminTop()
     {
         if (Auth::guard('admin')->check()) {
-            return view('admin_top');
+            return view('admin.top');
         }
     }
 }

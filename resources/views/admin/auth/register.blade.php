@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container">
     <ul class="navbar-nav ms-auto">
         <!-- Authentication Links -->
         @guest
-        @if (Route::has('login'))
+        @if (Route::has('admin_login_form'))
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">ログインはこちら</a>
+            <a class="nav-link" href="{{ route('admin_login_form') }}">ログインはこちら</a>
         </li>
         @endif
         @endguest
@@ -15,10 +15,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center">新規会員登録</div>
+                <div class="card-header text-center">新規管理ユーザー登録</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('admin_register') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -28,20 +28,6 @@
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="kanaName" class="col-md-4 col-form-label text-md-end">カナ</label>
-
-                            <div class="col-md-6">
-                                <input id="kanaName" type="text" class="form-control @error('kanaName') is-invalid @enderror" name="name_kana" value="{{ old('kanaName') }}" required autocomplete="kanaName" autofocus>
-
-                                @error('kanaName')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -81,21 +67,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">パスワード確認</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">クラスID</label>
-
-                            <div class="col-md-6">
-                                <input id="class-id" type="number" class="form-control @error('class-id') is-invalid @enderror" name="class-id" value="{{ old('class-id') }}" required autocomplete="class-id">
-
-                                @error('class-id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                <input id="passwordConfirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 

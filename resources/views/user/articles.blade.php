@@ -1,4 +1,4 @@
-@extends('layouts.login_template')
+@extends('user.layouts.login_template')
 
 @section('content')
 <button type="button" onClick="history.back()">←戻る</button>

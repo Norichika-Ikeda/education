@@ -7,8 +7,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
-use App\Models\Article;
-use App\Models\Banner;
 
 class LoginController extends Controller
 {
@@ -49,7 +47,7 @@ class LoginController extends Controller
      */
     public function showAdminLoginForm()
     {
-        return view('admin.admin_login');
+        return view('admin.auth.login');
     }
 
     public function adminLogin(Request $request)

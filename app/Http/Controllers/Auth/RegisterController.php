@@ -8,10 +8,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\JsonResponse;
 
 class RegisterController extends Controller
 {
@@ -105,7 +103,7 @@ class RegisterController extends Controller
 
     public function showAdminRegisterForm()
     {
-        return view('admin.admin_register', ['authgroup' => 'admin']);
+        return view('admin.auth.register', ['authgroup' => 'admin']);
     }
 
     public function adminRegister(Request $request)

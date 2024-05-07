@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container">
     <ul class="navbar-nav ms-auto">
         <!-- Authentication Links -->
         @guest
-        @if (Route::has('register'))
+        @if (Route::has('admin_register_form'))
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">新規会員登録はこちら</a>
+            <a class="nav-link" href="{{ route('admin_register_form') }}">新規会員登録はこちら</a>
         </li>
         @endif
         @endguest
@@ -15,9 +15,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center">ログイン</div>
+                <div class="card-header text-center">管理画面ログイン</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('admin_login') }}">
                         @csrf
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">メールアドレス</label>

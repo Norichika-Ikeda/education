@@ -1,4 +1,4 @@
-@extends('layouts.login_template')
+@extends('user.layouts.login_template')
 
 @section('content')
 <div class="banner">
