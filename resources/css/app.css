@@ -264,3 +264,51 @@ a {
         transform: translate(-50%, -50%) rotate(90deg);
     }
 }
+
+
+.article-list tr {
+    height: 60px;
+}
+
+.edit-article,
+.remove-article {
+    border: 0px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.edit-article {
+    background-color: #169398;
+}
+
+.remove-article {
+    background-color: #FF0000;
+}
+
+.posted-date {
+    position: relative;
+
+    &::before {
+        content: attr(placeholder);
+        position: absolute;
+        opacity: 0.5;
+    }
+
+    &::-webkit-datetime-edit-fields-wrapper {
+        opacity: 1;
+    }
+
+    &[value] {
+        opacity: 1;
+    }
+
+    &[type="date"] {
+        position: relative;
+
+        &::-webkit-calendar-picker-indicator {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+        }
+    }
+}

@@ -34,13 +34,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(
 
         Route::get('curriculum_management/{id}', [CurriculumController::class, 'showCurriculumManagement'])->name('curriculum_management');
 
-        Route::get('curriculum_setting', [CurriculumController::class, 'curriculumCreateForm'])->name('curriculum_create_form');
+        Route::get('curriculum_create', [CurriculumController::class, 'curriculumCreateForm'])->name('curriculum_create_form');
 
-        Route::post('/curriculum_create', [CurriculumController::class, 'curriculumCreate'])->name('curriculum_create');
+        Route::post('curriculum_create', [CurriculumController::class, 'curriculumCreate'])->name('curriculum_create');
 
-        Route::get('/curriculum_setting/{id}', [CurriculumController::class, 'curriculumEditForm'])->name('curriculum_edit_form');
+        Route::get('curriculum_edit/{id}', [CurriculumController::class, 'curriculumEditForm'])->name('curriculum_edit_form');
 
-        Route::post('/curriculum_edit', [CurriculumController::class, 'curriculumEdit'])->name('curriculum_edit');
+        Route::post('curriculum_edit', [CurriculumController::class, 'curriculumEdit'])->name('curriculum_edit');
 
         Route::get('/delivery_time_setting/{id}', [DeliveryTimeController::class, 'deliveryTimeForm'])->name('delivery_time_form');
 
@@ -49,5 +49,17 @@ Route::prefix('admin')->middleware('auth:admin')->group(
         Route::delete('/delivery_time_delete/{id}', [DeliveryTimeController::class, 'deliveryTimeDelete'])->name('delivery_time_delete');
 
         Route::get('/delivery_time_add', [DeliveryTimeController::class, 'deliveryTimeAdd'])->name('delivery_time_add');
+
+        Route::get('/article_management', [ArticleController::class, 'showArticleManagement'])->name('article_management');
+
+        Route::get('/article_create', [ArticleController::class, 'articleCreateForm'])->name('article_create_form');
+
+        Route::post('/article_create', [ArticleController::class, 'articleCreate'])->name('article_create');
+
+        Route::get('/article_edit/{id}', [ArticleController::class, 'articleEditForm'])->name('article_edit_form');
+
+        Route::post('/article_edit', [ArticleController::class, 'articleEdit'])->name('article_edit');
+
+        Route::delete('/article_delete/{id}', [ArticleController::class, 'articleDelete'])->name('article_delete');
     }
 );

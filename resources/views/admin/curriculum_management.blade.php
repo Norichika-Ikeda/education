@@ -52,7 +52,7 @@
                         @endif
                     </div>
                     <div class="edit">
-                        {{ Form::open(['url' => 'admin/curriculum_setting/' .$curriculum->id, 'method' => 'GET']) }}
+                        {{ Form::open(['url' => 'admin/curriculum_edit/' .$curriculum->id, 'method' => 'GET']) }}
                         <button type="submit" class="curriculum-edit">授業内容編集</button>
                         {{ Form::close() }}
                         {{ Form::open(['url' => 'admin/delivery_time_setting/' .$curriculum->id, 'method' => 'GET']) }}

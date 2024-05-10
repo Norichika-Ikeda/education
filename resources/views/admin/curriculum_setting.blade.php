@@ -8,7 +8,7 @@
 <p>授業設定</p>
 
 <div class="curriculum-setting">
-    @if(Request::is('admin/curriculum_setting/*'))
+    @if(Request::is('admin/curriculum_edit/*'))
     {{ Form::open(['route' => 'curriculum_edit', 'files' => true]) }}
     @csrf
     @else

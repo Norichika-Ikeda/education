@@ -50,8 +50,8 @@ class CurriculumController extends Controller
     {
         DB::beginTransaction();
         try {
-            $Curriculum = new Curriculum();
-            $Curriculum->registCurriculum($request);
+            $curriculum = new Curriculum();
+            $curriculum->registCurriculum($request);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
