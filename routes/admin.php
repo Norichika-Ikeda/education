@@ -3,6 +3,7 @@
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\DeliveryTimeController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CurriculumProgressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -61,5 +62,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(
         Route::post('/article_edit', [ArticleController::class, 'articleEdit'])->name('article_edit');
 
         Route::delete('/article_delete/{id}', [ArticleController::class, 'articleDelete'])->name('article_delete');
+
+        Route::get('/banner_management', [BannerController::class, 'showBannerManagement'])->name('banner_management');
+
+        Route::post('/banner_setting', [BannerController::class, 'bannerEdit'])->name('banner_edit');
+
+        Route::delete('/banner_delete/{id}', [BannerController::class, 'bannerDelete'])->name('banner_delete');
+
+        Route::get('/banner_add', [BannerController::class, 'bannerAdd'])->name('banner_add');
     }
 );

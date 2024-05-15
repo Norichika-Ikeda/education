@@ -213,3 +213,100 @@ $(function deleteArticle() {
         }
     })
 })
+
+let bannerImage = document.querySelector(".banner-form");
+$(function bannerSelect() {
+    $(document).on('click', '.banner-select', function () {
+        if ($(this).prev(bannerImage)[0]) {
+            $(this).prev(bannerImage)[0].click();
+        }
+    });
+})
+
+$(document).on("change", ".banner-form", function () {
+    let elem = this                             //操作された要素を取得
+    console.log(elem);
+    let fileReader = new FileReader();          //ファイルを読み取るオブジェクトを生成
+    fileReader.readAsDataURL(elem.files[0]);    //ファイルを読み取る
+    fileReader.onload = (function () {
+        if ($(elem).prev('.banner-image').length) {
+            $(elem).prev().attr('src', fileReader.result);
+        } else {
+            $(elem).before('<img src="" alt="" width="200px" height="130px" class="banner-image">');
+            $(elem).prev().attr('src', fileReader.result);
+        }
+    });
+})
+
+$(function deleteBanner() {
+    $(document).on('click', '.delete-banner', function () {
+        let deleteConfirm = confirm('本当に削除しますか？');
+
+        if (deleteConfirm == true) {
+            let clickElement = $(this);
+            let userId = clickElement.attr('id');
+
+            $.ajax({
+                url: 'banner_delete/' + userId,
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {
+                    'id': userId,
+                    '_method': 'DELETE'
+                },
+                dataType: 'json',
+            }).done(function (data) {
+                clickElement.parents('.banner').remove();
+            }).fail(function () {
+                //ajax通信がエラーのときの処理
+                console.log('通信に失敗しました。');
+            });
+        } else {
+            (function (e) {
+                e.preventDefault()
+            });
+        }
+    })
+})
+
+$(function removeBanner() {
+    $(document).on('click', '.remove-banner', function () {
+        let removeConfirm = confirm('本当に削除しますか？');
+
+        if (removeConfirm == true) {
+            let removeElement = $(this);
+            removeElement.parents('.banner').remove();
+        }
+    })
+})
+
+$(function addBanner() {
+    $(document).on('click', '#addBanner', function () {
+        var lastFormId = $('input[name="banner_id[]"]:last').val();
+        $.ajax({
+                url: 'banner_add',
+                type: 'GET',
+                data: {
+                    'last_id': lastFormId,
+                },
+            dataType: 'json',
+        }).done(function (data) {
+            let bannerLastId = data.banner_last_id.id;
+            if (bannerLastId < lastFormId) {
+                bannerLastId = lastFormId;
+            }
+            bannerLastId++;
+            let addBannerForm =
+                `<div class="banner d-flex align-items-center">
+                <input type = "hidden" name = "banner_id[]" class="banner-id" value = "${bannerLastId}" >
+                <input type="file" name="banner[]" class="banner-form " value="" style="display:none">
+                <button type="button" name="{{ $banner->id }}" class="banner-select ms-5">画像を選択</button>
+                <div id="${bannerLastId}" class="remove-banner ms-5"></div>
+                </div>`;
+                $(addBannerForm).appendTo('#bannerSetting').hide().fadeIn(300);
+            }).fail(function () {
+                //ajax通信がエラーのときの処理
+                console.log('通信に失敗しました。');
+            });
+    })
+})

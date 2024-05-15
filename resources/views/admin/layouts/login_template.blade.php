@@ -32,7 +32,7 @@
                     {{ Form::open(['url' => 'admin/article_management', 'method' => 'GET']) }}
                     <button type="submit" class="navbar__list-btn me-4" onclick="location.href=``">お知らせ管理</button>
                     {{ Form::close() }}
-                    {{ Form::open(['url' => 'admin/curriculum_management/' .'1', 'method' => 'GET']) }}
+                    {{ Form::open(['url' => 'admin/banner_management', 'method' => 'GET']) }}
                     <button type="submit" class="navbar__list-btn" onclick="location.href=``">バナー管理</button>
                     {{ Form::close() }}
                 </div>

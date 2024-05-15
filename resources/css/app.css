@@ -238,7 +238,8 @@ a {
     }
 }
 
-.add-delivery-time {
+.add-delivery-time,
+.add-banner {
     position: relative;
     width: 36px;
     height: 36px;
@@ -311,4 +312,33 @@ a {
             opacity: 0;
         }
     }
+}
+
+.delete-banner,
+.remove-banner {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background-color: #FF0000;
+    border: solid 1px #000;
+    border-radius: 100%;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: 4px;
+        background-color: #fff;
+        z-index: 9999;
+    }
+}
+
+.banner img {
+    width: 200px;
+    height: 130px;
+    object-fit: contain;
 }
