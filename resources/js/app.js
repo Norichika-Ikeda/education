@@ -298,10 +298,10 @@ $(function addBanner() {
             bannerLastId++;
             let addBannerForm =
                 `<div class="banner d-flex align-items-center">
-                <input type = "hidden" name = "banner_id[]" class="banner-id" value = "${bannerLastId}" >
+                <input type = "hidden" name = "banner_id[]" class="banner-id" value="">
                 <input type="file" name="banner[]" class="banner-form " value="" style="display:none">
                 <button type="button" name="{{ $banner->id }}" class="banner-select ms-5">画像を選択</button>
-                <div id="${bannerLastId}" class="remove-banner ms-5"></div>
+                <div class="remove-banner ms-5"></div>
                 </div>`;
                 $(addBannerForm).appendTo('#bannerSetting').hide().fadeIn(300);
             }).fail(function () {

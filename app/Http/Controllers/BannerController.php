@@ -21,17 +21,14 @@ class BannerController extends Controller
 
     public function bannerEdit(BannerRequest $request)
     {
-        $send_id = $request->banner_id;
         DB::beginTransaction();
-        foreach ($send_id as $req) {
-            try {
-                $save_banners = Banner::find($req);
-                $save_banners->saveBanner($request);
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollback();
-                return back();
-            }
+        try {
+            $save_banners = Banner::first();
+            $save_banners->saveBanner($request);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back();
         }
         return redirect('admin/banner_management');
     }
