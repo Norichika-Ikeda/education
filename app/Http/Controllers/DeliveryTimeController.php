@@ -29,17 +29,14 @@ class DeliveryTimeController extends Controller
 
     public function deliveryTimeEdit(DeliveryTimeRequest $request)
     {
-        $send_id = $request->delivery_time_id;
         DB::beginTransaction();
-        foreach ($send_id as $req) {
-            try {
-                $save_delivery_times = DeliveryTime::find($req);
-                $save_delivery_times->saveDeliveryTime($request);
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollback();
-                return back();
-            }
+        try {
+            $save_delivery_times = new DeliveryTime();
+            $save_delivery_times->saveDeliveryTime($request);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back();
         }
         return redirect('admin/curriculum_management/1');
     }

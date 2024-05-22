@@ -125,36 +125,21 @@ $(function removeDeliveryTime() {
 
 $(function addDeliveryTime() {
     $(document).on('click', '#addDeliveryTime', function () {
-        var lastFormId = $('input[name="delivery_time_id[]"]:last').val();
-        $.ajax({
-                url: '../delivery_time_add',
-                type: 'GET',
-                data: {
-                    'last_id': lastFormId,
-                },
-                dataType: 'json',
-        }).done(function (data) {
-            let deliveryTimeLastId = data.delivery_time_last_id.id;
-            if (deliveryTimeLastId < lastFormId) {
-                deliveryTimeLastId = lastFormId;
-            }
-            deliveryTimeLastId++;
-            let addDeliveryTimeForm =
-                `<div class="delivery-time__form--date">
-                <input type = "hidden" name = "delivery_time_id[]" value = "${deliveryTimeLastId}" >
-                <input type="date" name="date_from[]" class="date-from" value="" placeholder="年月日" required>
-                <input type="time" name="time_from[]" class="time-from" value="" placeholder="日時" required>
-                <p>～</p>
-                <input type="date" name="date_to[]" class="date-to" value="" placeholder="年月日" required>
-                <input type="time" name="time_to[]" class="time-to" value="" placeholder="日時" required>
-                <div class="delivery-time__form--remove"></div>
-                </div>`;
-            $(addDeliveryTimeForm).insertBefore('#addDeliveryTime').hide().fadeIn(300);
-        }).fail(function () {
-            //ajax通信がエラーのときの処理
-            console.log('通信に失敗しました。');
-        });
-    })
+        let addDeliveryTimeForm =
+            `<div class="delivery-time__form--date">
+            <input type = "hidden" name = "delivery_time_id[]" value = "" >
+            <input type="date" name="date_from[]" class="date-from" value="" placeholder="年月日" required>
+            <input type="time" name="time_from[]" class="time-from" value="" placeholder="日時" required>
+            <p>～</p>
+            <input type="date" name="date_to[]" class="date-to" value="" placeholder="年月日" required>
+            <input type="time" name="time_to[]" class="time-to" value="" placeholder="日時" required>
+            <div class="delivery-time__form--remove"></div>
+            </div>`;
+        $(addDeliveryTimeForm).insertBefore('#addDeliveryTime').hide().fadeIn(300);
+    }).fail(function () {
+        //ajax通信がエラーのときの処理
+        console.log('通信に失敗しました。');
+    });
 })
 
 // if (document.getElementById("articleSetting")) {
