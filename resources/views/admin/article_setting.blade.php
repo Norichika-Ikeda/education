@@ -1,7 +1,7 @@
 @extends('admin.layouts.login_template')
 
 @section('content')
-<div class="back-btn">
+<div class="back__btn">
     <a href="{{ route('article_management') }}">←戻る</a>
 </div>
 
@@ -53,7 +53,7 @@
         <p>{{ $errors->first('content') }}</p>
         @endif
     </div>
-    <button type="submit" class="btn btn-warning me-4">登録</button>
+    <button type="submit" class="me-4">登録</button>
     {{ Form::close() }}
 </div>
 

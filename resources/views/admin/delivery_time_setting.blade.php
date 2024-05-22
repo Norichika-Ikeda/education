@@ -1,7 +1,7 @@
 @extends('admin.layouts.login_template')
 
 @section('content')
-<div class="back-btn">
+<div class="back__btn">
     <a href="{{ route('curriculum_management', ['id' => '1']) }}">←戻る</a>
 </div>
 
@@ -14,36 +14,35 @@
 <div class="curriculum-id">
     <input type="hidden" name="curriculum_id" value="{{ $curriculum_title->id }}">
 </div>
-<div class="delivery-time-setting" id="deliveryTimeSetting">
+<div class="delivery-time__form" id="deliveryTimeSetting">
     @foreach($delivery_times as $delivery_time)
-    <div class="delivery-time">
+    <div class="delivery-time__form--date">
         <input type="hidden" name="delivery_time_id[]" class="delivery-time-id" value="{{ $delivery_time->id }}">
-        <input type="date" name="date_from[]" class="date-from @error('date_from[]') is-invalid @enderror" value="{{ $delivery_time->delivery_from->format('Y-m-d') }}" placeholder=" ">
+        <input type="date" name="date_from[]" class="date-from is-blank @error('date_from[]') is-invalid @enderror" value="{{ $delivery_time->delivery_from->format('Y-m-d') }}" placeholder=" ">
         @if($errors->has('date_from[]'))
         <p>{{ $errors->first('date_from[]') }}</p>
         @endif
-        <input type="time" name="time_from[]" class="time-from @error('time_from[]') is-invalid @enderror" value="{{ $delivery_time->delivery_from->format('H:i') }}" placeholder=" ">
+        <input type="time" name="time_from[]" class="time-from is-blank @error('time_from[]') is-invalid @enderror" value="{{ $delivery_time->delivery_from->format('H:i') }}" placeholder=" ">
         @if($errors->has('time_from[]'))
         <p>{{ $errors->first('time_from[]') }}</p>
         @endif
         <p>～</p>
-        <input type="date" name="date_to[]" class="date-to @error('date_to[]') is-invalid @enderror" value="{{ $delivery_time->delivery_to->format('Y-m-d') }}" placeholder=" ">
+        <input type="date" name="date_to[]" class="date-to is-blank @error('date_to[]') is-invalid @enderror" value="{{ $delivery_time->delivery_to->format('Y-m-d') }}" placeholder=" ">
         @if($errors->has('date_to[]'))
         <p>{{ $errors->first('date_to[]') }}</p>
         @endif
-        <input type="time" name="time_to[]" class="time-to @error('time_to[]') is-invalid @enderror" value="{{ $delivery_time->delivery_to->format('H:i') }}" placeholder=" ">
+        <input type="time" name="time_to[]" class="time-to is-blank @error('time_to[]') is-invalid @enderror" value="{{ $delivery_time->delivery_to->format('H:i') }}" placeholder=" ">
         @if($errors->has('time_to[]'))
         <p>{{ $errors->first('time_to[]') }}</p>
         @endif
-        <div id="{{ $delivery_time->id }}" class="delete-delivery-time"></div>
+        <div id="{{ $delivery_time->id }}" class="delivery-time__form--delete ms-2"></div>
     </div>
     @endforeach
+    <div id="addDeliveryTime" class="delivery-time__form--add m-4"></div>
+    <div class="delivery-time__form--regist my-5 text-center">
+        <button type="submit">登録</button>
+    </div>
+    {{ Form::close() }}
 </div>
-<div id="addDeliveryTime" class="add-delivery-time"></div>
-
-<button type="submit" name="delivery_time_edit">登録</button>
-
-{{ Form::close() }}
-
 
 @endsection

@@ -1,7 +1,7 @@
 @extends('admin.layouts.login_template')
 
 @section('content')
-<div class="back-btn">
+<div class="back__btn">
     <a href="{{ route('admin_top') }}">←戻る</a>
 </div>
 

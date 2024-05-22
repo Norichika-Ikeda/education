@@ -1,7 +1,7 @@
 @extends('user.layouts.login_template')
 
 @section('content')
-<div class="back-btn">
+<div class="back__btn">
     <a href="top">←戻る</a>
 </div>
 

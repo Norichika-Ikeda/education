@@ -140,48 +140,62 @@ $(function addDeliveryTime() {
             }
             deliveryTimeLastId++;
             let addDeliveryTimeForm =
-                `<div class="delivery-time">
+                `<div class="delivery-time__form--date">
                 <input type = "hidden" name = "delivery_time_id[]" value = "${deliveryTimeLastId}" >
                 <input type="date" name="date_from[]" class="date-from" value="" placeholder="年月日" required>
                 <input type="time" name="time_from[]" class="time-from" value="" placeholder="日時" required>
                 <p>～</p>
                 <input type="date" name="date_to[]" class="date-to" value="" placeholder="年月日" required>
                 <input type="time" name="time_to[]" class="time-to" value="" placeholder="日時" required>
-                <div class="remove-delivery-time"></div>
+                <div class="delivery-time__form--remove"></div>
                 </div>`;
-                $(addDeliveryTimeForm).appendTo('#deliveryTimeSetting').hide().fadeIn(300);
-            }).fail(function () {
-                //ajax通信がエラーのときの処理
-                console.log('通信に失敗しました。');
-            });
+            $(addDeliveryTimeForm).insertBefore('#addDeliveryTime').hide().fadeIn(300);
+        }).fail(function () {
+            //ajax通信がエラーのときの処理
+            console.log('通信に失敗しました。');
+        });
     })
 })
 
-if (document.getElementById("deliveryTimeSetting")) {
-    $('input.date-from').map(function (index, element) {
-        $(this).blur(function () {
-            if ($(this).val()) {
-                $(this).attr('placeholder', '');
-            } else {
-                $(this).attr('placeholder', '年月日');
-            }
-        })
-        return $(this).val();
-    }).get();
-}
+// if (document.getElementById("articleSetting")) {
+//     $('input.posted-date').map(function (index, element) {
+//         $(this).blur(function () {
+//             if ($(this).val()) {
+//                 $(this).attr('placeholder', '');
+//             } else {
+//                 $(this).attr('placeholder', '年月日');
+//             }
+//         })
+//         return $(this).val();
+//     }).get();
+// }
 
-if (document.getElementById("articleSetting")) {
-    $('input.posted-date').map(function (index, element) {
-        $(this).blur(function () {
-            if ($(this).val()) {
-                $(this).attr('placeholder', '');
-            } else {
-                $(this).attr('placeholder', '年月日');
-            }
-        })
-        return $(this).val();
-    }).get();
-}
+
+$('input[type="date"]').map(function () {
+    $(document).on('blur', 'input[type="date"]', (function () {
+        if ($(this).val()) {
+            $(this).addClass('is-blank');
+            $(this).attr('placeholder', '');
+        } else {
+            $(this).removeClass('is-blank');
+            $(this).attr('placeholder', '年月日');
+        }
+    })
+    )
+})
+
+$('input[type="time"]').map(function () {
+    $(document).on('blur', 'input[type="time"]', (function () {
+        if ($(this).val()) {
+            $(this).addClass('is-blank');
+            $(this).attr('placeholder', '');
+        } else {
+            $(this).removeClass('is-blank');
+            $(this).attr('placeholder', '日時');
+        }
+    })
+    )
+})
 
 $(function deleteArticle() {
     $(document).on('click', '.remove-article', function () {
@@ -225,7 +239,6 @@ $(function bannerSelect() {
 
 $(document).on("change", ".banner-form", function () {
     let elem = this                             //操作された要素を取得
-    console.log(elem);
     let fileReader = new FileReader();          //ファイルを読み取るオブジェクトを生成
     fileReader.readAsDataURL(elem.files[0]);    //ファイルを読み取る
     fileReader.onload = (function () {
@@ -297,10 +310,10 @@ $(function addBanner() {
             }
             bannerLastId++;
             let addBannerForm =
-                `<div class="banner d-flex align-items-center">
+                `<div class="banner d-flex align-items-center my-4">
                 <input type = "hidden" name = "banner_id[]" class="banner-id" value="">
                 <input type="file" name="banner[]" class="banner-form " value="" style="display:none">
-                <button type="button" name="{{ $banner->id }}" class="banner-select ms-5">画像を選択</button>
+                <button type="button" name="{{ $banner->id }}" class="banner-select ms-5">ファイルを選択</button>
                 <div class="remove-banner ms-5"></div>
                 </div>`;
                 $(addBannerForm).appendTo('#bannerSetting').hide().fadeIn(300);
@@ -309,4 +322,25 @@ $(function addBanner() {
                 console.log('通信に失敗しました。');
             });
     })
+})
+
+let curriculumImage = document.querySelector(".curriculum__form--image--btn");
+$(function bannerSelect() {
+    $(document).on('click', '.curriculum__form--image--select', function () {
+        if ($(this).prev(curriculumImage)[0]) {
+            $(this).prev(curriculumImage)[0].click();
+        }
+    });
+})
+
+$(document).on("change", ".curriculum__form--image--btn", function () {
+    let element = this                             //操作された要素を取得
+    let imagePreview = document.querySelector(".curriculum__form--image--preview");
+    console.log(element);
+    console.log(imagePreview);
+    let fileReader = new FileReader();          //ファイルを読み取るオブジェクトを生成
+    fileReader.readAsDataURL(element.files[0]);    //ファイルを読み取る
+    fileReader.onload = (function () {
+        $(imagePreview).attr('src', fileReader.result);
+    });
 })

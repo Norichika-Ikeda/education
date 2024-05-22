@@ -1,13 +1,13 @@
 @extends('admin.layouts.login_template')
 
 @section('content')
-<div class="back-btn">
+<div class="back__btn">
     <a href="{{ route('curriculum_management', ['id' => '1']) }}">←戻る</a>
 </div>
 
-<p>授業設定</p>
+<h2>授業設定</h2>
 
-<div class="curriculum-setting">
+<div class="curriculum__form">
     @if(Request::is('admin/curriculum_edit/*'))
     {{ Form::open(['route' => 'curriculum_edit', 'files' => true]) }}
     @csrf
@@ -16,77 +16,93 @@
     @csrf
     @endif
     @if(isset($curriculum->id))
-    <div class="curriculum-id">
+    <div class="curriculum__form--id">
         <input type="hidden" name="id" value="{{ $curriculum->id }}">
     </div>
     @endif
-    <div class="mb-3 curriculum-image">
-        @if(isset($curriculum->thumbnail))
-        <img src="{{ asset('storage/' .$curriculum->thumbnail) }}" alt="" width="300px">
-        @else
-        <img src="{{ asset('storage/e100c43d8a26007a9bb811c9af8e756e_t.jpeg') }}" alt="" width="300px">
-        @endif
-        <input type="file" name="image" class="@error('image') is-invalid @enderror" value="{{ old('image') }}">
+    <div class="curriculum__form--image row mb-3 mx-4">
+        <div class="col-sm-3">
+            @if(isset($curriculum->thumbnail))
+            <img src="{{ asset('storage/' .$curriculum->thumbnail) }}" alt="" class="curriculum__form--image--preview w-100">
+            @else
+            <img src="{{ asset('storage/e100c43d8a26007a9bb811c9af8e756e_t.jpeg') }}" alt="" class="curriculum__form--image--preview w-100">
+            @endif
+        </div>
+        <div class="col-sm-4">
+            <label for="image">サムネイル</label>
+            <input type="file" name="image" class="curriculum__form--image--btn @error('image') is-invalid @enderror" value="{{ old('image') }}" style="display:none">
+            <button type="button" class="curriculum__form--image--select d-block">ファイルを選択</button>
+        </div>
         @if($errors->has('image'))
         <p>{{ $errors->first('image') }}</p>
         @endif
     </div>
-    <div class="row mb-3 form-group">
+    <div class="curriculum__form--class row mb-3 form-group">
         <label for="grade" class="col-sm-2 col-form-label">学年</label>
-        <select name="grade" class="form-select w-75 @error('grade') is-invalid @enderror">
-            @foreach ($classes as $class)
-            <option value="{{ $class->id }}">{{ $class->name }}</option>
-            @endforeach
-        </select>
+        <div class="col-sm-8">
+            <select name="grade" class="form-select @error('grade') is-invalid @enderror">
+                @foreach ($classes as $class)
+                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                @endforeach
+            </select>
+        </div>
         @if($errors->has('grade'))
         <p>{{ $errors->first('grade') }}</p>
         @endif
     </div>
-    <div class="row mb-3">
+    <div class="curriculum__form--title row mb-3">
         <label for="title" class="col-sm-2 col-form-label">授業名</label>
-        @if(isset($curriculum->title))
-        <input type="text" name="title" class="form-control w-75 @error('title') is-invalid @enderror" value="{{ $curriculum->title }}">
-        @else
-        <input type="text" name="title" class="form-control w-75 @error('title') is-invalid @enderror" value="{{ old('title') }}">
-        @endif
+        <div class="col-sm-8">
+            @if(isset($curriculum->title))
+            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ $curriculum->title }}">
+            @else
+            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+            @endif
+        </div>
         @if($errors->has('title'))
         <p>{{ $errors->first('title') }}</p>
         @endif
     </div>
-    <div class="row mb-3">
+    <div class="curriculum__form--url row mb-3">
         <label for="movie" class="col-sm-2 col-form-label">動画URL</label>
-        @if(isset($curriculum->video_url))
-        <input type="text" name="movie" class="form-control w-75 @error('movie') is-invalid @enderror" value="{{ $curriculum->video_url }}">
-        @else
-        <input type="text" name="movie" class="form-control w-75 @error('movie') is-invalid @enderror" value="{{ old('movie') }}">
-        @endif
+        <div class="col-sm-8">
+            @if(isset($curriculum->video_url))
+            <input type="text" name="movie" class="form-control @error('movie') is-invalid @enderror" value="{{ $curriculum->video_url }}">
+            @else
+            <input type="text" name="movie" class="form-control @error('movie') is-invalid @enderror" value="{{ old('movie') }}">
+            @endif
+        </div>
         @if($errors->has('movie'))
         <p>{{ $errors->first('movie') }}</p>
         @endif
     </div>
-    <div class="row mb-3">
+    <div class="curriculum__form--description row mb-3">
         <label for="description" class="col-sm-2 col-form-label">授業概要</label>
-        @if(isset($curriculum->description))
-        <textarea name="description" class="form-control w-75 @error('description') is-invalid @enderror" value="{{ $curriculum->description }}">{{ $curriculum->description }}</textarea>
-        @else
-        <textarea name="description" class="form-control w-75 @error('description') is-invalid @enderror" value="{{ old('description') }}">{{ old('description') }}</textarea>
-        @endif
+        <div class="col-sm-8">
+            @if(isset($curriculum->description))
+            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ $curriculum->description }}">{{ $curriculum->description }}</textarea>
+            @else
+            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">{{ old('description') }}</textarea>
+            @endif
+        </div>
         @if($errors->has('description'))
         <p>{{ $errors->first('description') }}</p>
         @endif
     </div>
-    <div class="custom-control custom-checkbox">
+    <div class="curriculum__form--flag">
         @if(isset($curriculum->alway_delivery_flg) && $curriculum->alway_delivery_flg == "1")
-        <input type="checkbox" name="flag" class="custom-control-input @error('flag') is-invalid @enderror" checked>
+        <input type="checkbox" name="flag" class="form-check-input me-2 @error('flag') is-invalid @enderror" checked>
         @else
-        <input type="checkbox" name="flag" class="custom-control-input @error('flag') is-invalid @enderror">
+        <input type="checkbox" name="flag" class="form-check-input me-2 @error('flag') is-invalid @enderror">
         @endif
-        <label for="flag" class="custom-control-label">常時公開</label>
+        <label for="flag">常時公開</label>
         @if($errors->has('flag'))
         <p>{{ $errors->first('flag') }}</p>
         @endif
     </div>
-    <button type="submit" class="btn btn-warning me-4">登録</button>
+    <div class="curriculum__form--regist my-5 text-center">
+        <button type="submit">登録</button>
+    </div>
     {{ Form::close() }}
 </div>
 
