@@ -19,11 +19,17 @@ class Banner extends Model
         $upsertBanners = [];
         foreach ($some_request as $key => $val) {
             $banner_id = $data->banner_id[$key];
-            $banner = $data->banner[$key];
-            $already_banner = Banner::where('id', $banner_id)->first();
+            if (isset($data->banner[$key])) {
+                $banner = $data->banner[$key];
+                $file_name = $banner->getClientOriginalName();
+                $banner->storeAs('public/images', $file_name);
+            } else {
+                $file_name = null;
+            }
+            $already_banner = Banner::where('id', $banner_id)->first('image');
             $upsertBanners = [
                 'id' => $banner_id ?? null,
-                'image' => $banner ?? $already_banner->image
+                'image' => $file_name ?? $already_banner->image
             ];
             Banner::upsert($upsertBanners, ['id']);
         }

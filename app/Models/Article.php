@@ -15,12 +15,14 @@ class Article extends Model
 
     protected $guarded = [];
 
-    protected function postedDate(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y-m-d')
-        );
-    }
+    protected $dates = ['posted_date',];
+
+    // protected function postedDate(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => Carbon::parse($value)->timezone('Asia/Tokyo')->format('Y-m-d')
+    //     );
+    // }
 
     public function registArticle($data)
     {

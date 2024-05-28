@@ -31,14 +31,24 @@ class CurriculumController extends Controller
      * 管理者用
      */
 
-    public function showCurriculumManagement($id)
+    public function showCurriculumManagement(request $request, $id)
     {
         $now_class = Classes::find($id);
         $classes = Classes::where('id', '!=', $id)->get(['id', 'name']);
         $curriculums = Curriculum::where('classes_id', $id)->get(['id', 'title', 'thumbnail', 'alway_delivery_flg']);
         $delivery_times = DeliveryTime::get();
-        return view('admin.curriculum_management', ['now_class' => $now_class, 'classes' => $classes, 'curriculums' => $curriculums, 'delivery_times' => $delivery_times]);
+        if ($request->ajax()) {
+            return response()->json(
+                compact('now_class', 'classes', 'curriculums', 'delivery_times'),
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
+        } else {
+            return view('admin.curriculum_management', ['now_class' => $now_class, 'classes' => $classes, 'curriculums' => $curriculums, 'delivery_times' => $delivery_times]);
+        }
     }
+
 
     public function curriculumCreateForm()
     {

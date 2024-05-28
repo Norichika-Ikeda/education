@@ -162,13 +162,15 @@ a {
 }
 
 .curriculum__top__btn--regist>button,
-.curriculum__top__btn--grade>p {
+.curriculum__top__btn--grade>p,
+.article__btn--regist>button {
     border-radius: 10px;
     border: 0px;
     color: #fff;
 }
 
-.curriculum__top__btn--regist>button {
+.curriculum__top__btn--regist>button,
+.article__btn--regist>button {
     width: 110px;
     background-color: #169398;
 }
@@ -230,12 +232,17 @@ a {
 
 .curriculum__card {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(294px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 1rem;
 
     &>.curriculum__card__item {
-        width: 300px;
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 4;
+        gap: .5rem;
+        max-width: 400px;
         font-size: 1.2rem;
+
 
         img {
             width: 100%;
@@ -254,9 +261,17 @@ a {
 }
 
 .curriculum__form,
-.delivery-time__form {
+.delivery-time__form,
+.article__form,
+.banner__form {
     font-size: 1.2rem;
 }
+
+.curriculum__form--image button,
+.banner__form--select button {
+    background-color: #fff;
+}
+
 
 .curriculum__form--class,
 .curriculum__form--title,
@@ -272,7 +287,9 @@ a {
 }
 
 .curriculum__form--regist>button,
-.delivery-time__form--regist>button {
+.delivery-time__form--regist>button,
+.article__form--regist>button,
+.banner__form--regist>button {
     width: 20%;
     background-color: #646464;
     color: #fff;
@@ -280,9 +297,6 @@ a {
 }
 
 .delivery-time__form--date {
-    display: flex;
-    align-items: center;
-
     &>p {
         margin: 0;
     }
@@ -297,32 +311,28 @@ a {
             content: attr(placeholder);
             color: #C2C2C2;
         }
-    }
 
-    input[type="date"]::-webkit-calendar-picker-indicator,
-    input[type="time"]::-webkit-calendar-picker-indicator {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        left: 0;
-    }
-
-    input[type="date"].is-blank::-webkit-datetime-edit,
-    input[type="time"].is-blank::-webkit-datetime-edit {
-        display: block;
-
-        input[type="date"] {
-            color: #C2C2C2;
+        &[type="date"]::-webkit-calendar-picker-indicator,
+        &[type="time"]::-webkit-calendar-picker-indicator {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: 0;
         }
 
+        &[type="date"].is-blank::-webkit-datetime-edit,
+        &[type="time"].is-blank::-webkit-datetime-edit {
+            display: block;
+        }
+
+        &[type="date"]:not(.is-blank)::-webkit-datetime-edit,
+        &[type="time"]:not(.is-blank)::-webkit-datetime-edit {
+            display: none;
+        }
     }
 
-    input[type="date"]:not(.is-blank)::-webkit-datetime-edit,
-    input[type="time"]:not(.is-blank)::-webkit-datetime-edit {
-        display: none;
-    }
 }
 
 .delivery-time__form--delete,
@@ -349,7 +359,7 @@ a {
 }
 
 .delivery-time__form--add,
-.add-banner {
+.banner__form--add {
     position: relative;
     width: 36px;
     height: 36px;
@@ -376,9 +386,35 @@ a {
     }
 }
 
+.article {
+    width: 98%;
+    margin: 0 auto;
 
-.article-list tr {
-    height: 60px;
+    table {
+        display: grid;
+        grid-template-columns: 0.6fr 1.5fr 0.2fr 0.2fr;
+        row-gap: 1.5em;
+        align-items: center;
+
+        thead,
+        tbody,
+        tr {
+            display: contents;
+        }
+
+        th,
+        td {
+            display: block;
+            width: 100%;
+            font-size: clamp(1rem, 1.5vw, 1.5em);
+
+            button {
+                width: 80%;
+                min-width: 100px;
+                font-size: 1rem;
+            }
+        }
+    }
 }
 
 .edit-article,
@@ -396,31 +432,54 @@ a {
     background-color: #FF0000;
 }
 
-.posted-date {
+.article__form {
+    width: 98%;
+    margin: 50px auto;
+}
+
+.article__form--date input {
     position: relative;
 
     &::before {
         content: attr(placeholder);
+        color: #C2C2C2;
+    }
+
+    &[type="date"]::-webkit-calendar-picker-indicator {
+        width: 100%;
+        height: 100%;
         position: absolute;
-        opacity: 0.5;
+        opacity: 0;
+        top: 0;
+        left: 0;
     }
 
-    &::-webkit-datetime-edit-fields-wrapper {
-        opacity: 1;
+    &[type="date"].is-blank::-webkit-datetime-edit {
+        display: block;
     }
 
-    &[value] {
-        opacity: 1;
+    &[type="date"]:not(.is-blank)::-webkit-datetime-edit {
+        display: none;
+    }
+}
+
+.curriculum__form--description textarea,
+.article__form textarea {
+    resize: none;
+}
+
+.banner__form--select {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    margin: 15px 10%;
+
+    &>img {
+        width: 240px;
+        object-fit: contain;
     }
 
-    &[type="date"] {
-        position: relative;
-
-        &::-webkit-calendar-picker-indicator {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-        }
+    &>button {
+        width: 180px;
     }
 }
 
@@ -447,8 +506,6 @@ a {
     }
 }
 
-.banner img {
-    width: 200px;
-    height: 130px;
-    object-fit: contain;
+.banner__form--add {
+    margin: 30px 8%;
 }

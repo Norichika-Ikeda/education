@@ -6,7 +6,7 @@
 </div>
 
 <h2>配信日時設定</h2>
-<div class="curriculum-title">
+<div class="curriculum-title my-4">
     <h3>{{ $curriculum_title->title }}</h3>
 </div>
 {{ Form::open(['route' => 'delivery_time_edit']) }}
@@ -16,7 +16,7 @@
 </div>
 <div class="delivery-time__form" id="deliveryTimeSetting">
     @foreach($delivery_times as $delivery_time)
-    <div class="delivery-time__form--date">
+    <div class="delivery-time__form--date d-flex align-items-center">
         <input type="hidden" name="delivery_time_id[]" class="delivery-time-id" value="{{ $delivery_time->id }}">
         <input type="date" name="date_from[]" class="date-from is-blank @error('date_from[]') is-invalid @enderror" value="{{ $delivery_time->delivery_from->format('Y-m-d') }}" placeholder=" ">
         @if($errors->has('date_from[]'))

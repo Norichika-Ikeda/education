@@ -80,9 +80,9 @@
         <label for="description" class="col-sm-2 col-form-label">授業概要</label>
         <div class="col-sm-8">
             @if(isset($curriculum->description))
-            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ $curriculum->description }}">{{ $curriculum->description }}</textarea>
+            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ $curriculum->description }}" rows="5">{{ $curriculum->description }}</textarea>
             @else
-            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">{{ old('description') }}</textarea>
+            <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" rows="5">{{ old('description') }}</textarea>
             @endif
         </div>
         @if($errors->has('description'))

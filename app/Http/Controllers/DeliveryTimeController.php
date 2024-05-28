@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\DeliveryTimeRequest;
 use App\Models\DeliveryTime;
 use App\Models\Curriculum;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DeliveryTimeController extends Controller

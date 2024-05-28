@@ -42,7 +42,7 @@ class ArticleController extends Controller
      */
     public function showArticleManagement()
     {
-        $articles = Article::get();
+        $articles = Article::orderByDesc('posted_date')->get();
         return view('admin.article_management', ['articles' => $articles]);
     }
 
