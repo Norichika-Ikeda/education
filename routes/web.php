@@ -24,11 +24,13 @@ Auth::routes();
 
 Route::middleware('auth:user')->group(
     function () {
-        Route::get('/top', [ArticleController::class, 'top'])->name("top");
+        Route::get('/top', [ArticleController::class, 'top'])->name('top');
 
         Route::get('/articles/{id}', [ArticleController::class, 'article'])->name("article");
-        Route::get('/timetable', [CurriculumController::class, 'timetable']);
-        Route::get('/progress', [CurriculumProgressController::class, 'progress']);
-        Route::get('/profile', [UserController::class, 'profile']);
+        Route::get('/timetable', [CurriculumController::class, 'timetable'])->name('timetable');
+        Route::get('/prev_timetable', [CurriculumController::class, 'prevMonthTimetable'])->name('prev_month_timetable');
+        Route::get('/timetable/{next_month}', [CurriculumController::class, 'nextMonthTimetable'])->name('next_month_timetable');
+        Route::get('/progress', [CurriculumProgressController::class, 'progress'])->name('progress');
+        Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     }
 );

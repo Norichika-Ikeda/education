@@ -18,15 +18,19 @@ class ArticleController extends Controller
     public function top()
     {
         $banners = Banner::get('image');
-        $articles = Article::select('id', 'title', 'posted_date', 'article_contents')->get();
+        $articles = Article::select('id', 'title', 'posted_date', 'article_contents')->orderByDesc('posted_date')->get();
         return view('user.top', ['banners' => $banners, 'articles' => $articles]);
     }
 
     public function article($id)
     {
         $article = Article::find($id);
-        return view('articles', ['article' => $article]);
+        return view('user.articles', ['article' => $article]);
     }
+
+    /**
+     * 管理者用
+     */
 
     public function adminTop()
     {
@@ -35,11 +39,6 @@ class ArticleController extends Controller
         }
     }
 
-
-
-    /**
-     * 管理者用
-     */
     public function showArticleManagement()
     {
         $articles = Article::orderByDesc('posted_date')->get();

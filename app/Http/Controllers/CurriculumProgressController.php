@@ -10,6 +10,6 @@ class CurriculumProgressController extends Controller
     public function progress()
     {
         $user = Auth::user();
-        return view('progress', ['user' => $user]);
+        return view('user.progress', ['user' => $user]);
     }
 }

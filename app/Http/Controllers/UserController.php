@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function profile()
     {
-        return view('profile');
+        return view('user.profile');
     }
 }
